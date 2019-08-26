@@ -77,6 +77,9 @@
     <Filter Include="algorithm\DynamicFusion\voxelHash">
       <UniqueIdentifier>{3471bb37-bf17-431d-b610-67dcdc742b20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KinfuCommon">
+      <UniqueIdentifier>{93ff8f2f-5740-4c79-a8fb-72b49a47d2eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,6 +237,9 @@
     </ClCompile>
     <ClCompile Include="algorithm\DynamicFusion\SparseVolume.cpp">
       <Filter>algorithm\DynamicFusion</Filter>
+    </ClCompile>
+    <ClCompile Include="KinectFusionCommon\DepthSensor\GPUUndistorter.cpp">
+      <Filter>KinfuCommon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +607,24 @@
     </ClInclude>
     <ClInclude Include="algorithm\DynamicFusion\VoxelHash\chunk.h">
       <Filter>algorithm\DynamicFusion\voxelHash</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\ArgParser.h">
+      <Filter>KinfuCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\DepthSensor.h">
+      <Filter>KinfuCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\DepthSensor\GPUUndistorter.h">
+      <Filter>KinfuCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectAzure.h">
+      <Filter>KinfuCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectAzureMT.h">
+      <Filter>KinfuCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectV1.h">
+      <Filter>KinfuCommon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

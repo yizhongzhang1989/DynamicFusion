@@ -1,0 +1,5 @@
+KinectAzure camera_projection h_fov=62 w=640 h=480
+
+KinectV1
+
+KinectAzure from_file E:/k4a_190813_3

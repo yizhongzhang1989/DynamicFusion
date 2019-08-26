@@ -1,0 +1,324 @@
+#include "igDXGI.h"
+#include <vector>
+using namespace ig::DXGI;
+
+UINT ig::DXGI::GetDXGIFormatBytes(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R32G32B32A32_TYPELESS:
+	case DXGI_FORMAT_R32G32B32A32_FLOAT:
+	case DXGI_FORMAT_R32G32B32A32_UINT:
+	case DXGI_FORMAT_R32G32B32A32_SINT:
+		return 16;
+	case DXGI_FORMAT_R32G32B32_TYPELESS:
+	case DXGI_FORMAT_R32G32B32_FLOAT:
+	case DXGI_FORMAT_R32G32B32_UINT:
+	case DXGI_FORMAT_R32G32B32_SINT:
+		return 12;
+	case DXGI_FORMAT_R16G16B16A16_TYPELESS:
+	case DXGI_FORMAT_R16G16B16A16_FLOAT:
+	case DXGI_FORMAT_R16G16B16A16_UNORM:
+	case DXGI_FORMAT_R16G16B16A16_UINT:
+	case DXGI_FORMAT_R16G16B16A16_SNORM:
+	case DXGI_FORMAT_R16G16B16A16_SINT:
+	case DXGI_FORMAT_R32G32_TYPELESS:
+	case DXGI_FORMAT_R32G32_FLOAT:
+	case DXGI_FORMAT_R32G32_UINT:
+	case DXGI_FORMAT_R32G32_SINT:
+	case DXGI_FORMAT_R32G8X24_TYPELESS:
+	case DXGI_FORMAT_D32_FLOAT_S8X24_UINT:
+	case DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS:
+	case DXGI_FORMAT_X32_TYPELESS_G8X24_UINT:
+		return 8;
+	case DXGI_FORMAT_R10G10B10A2_TYPELESS:
+	case DXGI_FORMAT_R10G10B10A2_UNORM:
+	case DXGI_FORMAT_R10G10B10A2_UINT:
+	case DXGI_FORMAT_R11G11B10_FLOAT:
+	case DXGI_FORMAT_R8G8B8A8_TYPELESS:
+	case DXGI_FORMAT_R8G8B8A8_UNORM:
+	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+	case DXGI_FORMAT_R8G8B8A8_UINT:
+	case DXGI_FORMAT_R8G8B8A8_SNORM:
+	case DXGI_FORMAT_R8G8B8A8_SINT:
+	case DXGI_FORMAT_R16G16_TYPELESS:
+	case DXGI_FORMAT_R16G16_FLOAT:
+	case DXGI_FORMAT_R16G16_UNORM:
+	case DXGI_FORMAT_R16G16_UINT:
+	case DXGI_FORMAT_R16G16_SNORM:
+	case DXGI_FORMAT_R16G16_SINT:
+	case DXGI_FORMAT_R32_TYPELESS:
+	case DXGI_FORMAT_D32_FLOAT:
+	case DXGI_FORMAT_R32_FLOAT:
+	case DXGI_FORMAT_R32_UINT:
+	case DXGI_FORMAT_R32_SINT:
+	case DXGI_FORMAT_R24G8_TYPELESS:
+	case DXGI_FORMAT_D24_UNORM_S8_UINT:
+	case DXGI_FORMAT_R24_UNORM_X8_TYPELESS:
+	case DXGI_FORMAT_X24_TYPELESS_G8_UINT:
+	case DXGI_FORMAT_B8G8R8A8_UNORM:
+	case DXGI_FORMAT_B8G8R8X8_UNORM:
+		return 4;
+	case DXGI_FORMAT_R8G8_TYPELESS:
+	case DXGI_FORMAT_R8G8_UNORM:
+	case DXGI_FORMAT_R8G8_UINT:
+	case DXGI_FORMAT_R8G8_SNORM:
+	case DXGI_FORMAT_R8G8_SINT:
+	case DXGI_FORMAT_R16_TYPELESS:
+	case DXGI_FORMAT_R16_FLOAT:
+	case DXGI_FORMAT_D16_UNORM:
+	case DXGI_FORMAT_R16_UNORM:
+	case DXGI_FORMAT_R16_UINT:
+	case DXGI_FORMAT_R16_SNORM:
+	case DXGI_FORMAT_R16_SINT:
+	case DXGI_FORMAT_B5G6R5_UNORM:
+	case DXGI_FORMAT_B5G5R5A1_UNORM:
+		return 2;
+	case DXGI_FORMAT_R8_TYPELESS:
+	case DXGI_FORMAT_R8_UNORM:
+	case DXGI_FORMAT_R8_UINT:
+	case DXGI_FORMAT_R8_SNORM:
+	case DXGI_FORMAT_R8_SINT:
+	case DXGI_FORMAT_A8_UNORM:
+		return 1;
+	case DXGI_FORMAT_BC2_TYPELESS:
+	case DXGI_FORMAT_BC2_UNORM:
+	case DXGI_FORMAT_BC2_UNORM_SRGB:
+	case DXGI_FORMAT_BC3_TYPELESS:
+	case DXGI_FORMAT_BC3_UNORM:
+	case DXGI_FORMAT_BC3_UNORM_SRGB:
+	case DXGI_FORMAT_BC5_TYPELESS:
+	case DXGI_FORMAT_BC5_UNORM:
+	case DXGI_FORMAT_BC5_SNORM:
+		return 16;
+	case DXGI_FORMAT_R1_UNORM:
+	case DXGI_FORMAT_BC1_TYPELESS:
+	case DXGI_FORMAT_BC1_UNORM:
+	case DXGI_FORMAT_BC1_UNORM_SRGB:
+	case DXGI_FORMAT_BC4_TYPELESS:
+	case DXGI_FORMAT_BC4_UNORM:
+	case DXGI_FORMAT_BC4_SNORM:
+		return 8;
+	case DXGI_FORMAT_R9G9B9E5_SHAREDEXP:
+		return 4;
+	case DXGI_FORMAT_R8G8_B8G8_UNORM:
+	case DXGI_FORMAT_G8R8_G8B8_UNORM:
+		return 4;
+	case DXGI_FORMAT_UNKNOWN:
+		return 0;
+	default:
+		return 0;
+	}
+}
+
+bool ig::DXGI::IsTypeless(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R32G32B32A32_TYPELESS:
+	case DXGI_FORMAT_R32G32B32_TYPELESS:
+	case DXGI_FORMAT_R16G16B16A16_TYPELESS:
+	case DXGI_FORMAT_R32G32_TYPELESS:
+	case DXGI_FORMAT_R32G8X24_TYPELESS:
+	case DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS:
+	case DXGI_FORMAT_X32_TYPELESS_G8X24_UINT:
+	case DXGI_FORMAT_R10G10B10A2_TYPELESS:
+	case DXGI_FORMAT_R8G8B8A8_TYPELESS:
+	case DXGI_FORMAT_R16G16_TYPELESS:
+	case DXGI_FORMAT_R32_TYPELESS:
+	case DXGI_FORMAT_R24G8_TYPELESS:
+	case DXGI_FORMAT_R24_UNORM_X8_TYPELESS:
+	case DXGI_FORMAT_X24_TYPELESS_G8_UINT:
+	case DXGI_FORMAT_R8G8_TYPELESS:
+	case DXGI_FORMAT_R16_TYPELESS:
+	case DXGI_FORMAT_R8_TYPELESS:
+	case DXGI_FORMAT_BC2_TYPELESS:
+	case DXGI_FORMAT_BC3_TYPELESS:
+	case DXGI_FORMAT_BC5_TYPELESS:
+	case DXGI_FORMAT_BC1_TYPELESS:
+	case DXGI_FORMAT_BC4_TYPELESS:
+		return true;
+	default:
+		return false;
+	}
+	return false;
+}
+
+bool ig::DXGI::IsDepthFormat(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_D32_FLOAT_S8X24_UINT:
+	case DXGI_FORMAT_D32_FLOAT:
+	case DXGI_FORMAT_D24_UNORM_S8_UINT:
+	case DXGI_FORMAT_D16_UNORM:
+		return true;
+	default:
+		return false;
+	}
+	return false;
+}
+
+DXGI_FORMAT ig::DXGI::TypelessToDepthFormat(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R32G32_TYPELESS:
+	case DXGI_FORMAT_R32G8X24_TYPELESS:
+		return DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
+
+	case DXGI_FORMAT_R32_TYPELESS:
+		return DXGI_FORMAT_D32_FLOAT;
+
+	case DXGI_FORMAT_R24G8_TYPELESS:
+	case DXGI_FORMAT_R24_UNORM_X8_TYPELESS:
+	case DXGI_FORMAT_X24_TYPELESS_G8_UINT:
+		return DXGI_FORMAT_D24_UNORM_S8_UINT;
+
+	case DXGI_FORMAT_R16_TYPELESS:
+		return DXGI_FORMAT_D16_UNORM;
+
+	default:
+		return format;
+	}
+	return format;
+}
+
+DXGI_FORMAT ig::DXGI::TypelessToFloatFormat(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R32G32B32A32_TYPELESS:
+		return DXGI_FORMAT_R32G32B32A32_FLOAT;
+	case DXGI_FORMAT_R32G32B32_TYPELESS:
+		return DXGI_FORMAT_R32G32B32_FLOAT;
+	
+	case DXGI_FORMAT_R16G16B16A16_TYPELESS:
+		return DXGI_FORMAT_R16G16B16A16_FLOAT;
+	case DXGI_FORMAT_R32G32_TYPELESS:
+		return DXGI_FORMAT_R32G32_FLOAT;
+	case DXGI_FORMAT_R32G8X24_TYPELESS:
+		return DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS;
+	case DXGI_FORMAT_R10G10B10A2_TYPELESS:
+		return DXGI_FORMAT_R10G10B10A2_UNORM;	
+	case DXGI_FORMAT_R8G8B8A8_TYPELESS:
+		return DXGI_FORMAT_R8G8B8A8_UNORM;
+	case DXGI_FORMAT_R16G16_TYPELESS:
+		return DXGI_FORMAT_R16G16_FLOAT;
+	case DXGI_FORMAT_R32_TYPELESS:
+		return DXGI_FORMAT_R32_FLOAT;
+	case DXGI_FORMAT_R24G8_TYPELESS:
+		return DXGI_FORMAT_D24_UNORM_S8_UINT;
+	
+	case DXGI_FORMAT_R8G8_TYPELESS:
+		return DXGI_FORMAT_R8G8_UNORM;
+	case DXGI_FORMAT_R16_TYPELESS:
+		return DXGI_FORMAT_R16_FLOAT;	
+	case DXGI_FORMAT_R8_TYPELESS:
+		return DXGI_FORMAT_R8_UNORM;
+	case DXGI_FORMAT_BC2_TYPELESS:
+		return DXGI_FORMAT_BC2_UNORM;
+	case DXGI_FORMAT_BC3_TYPELESS:
+		return DXGI_FORMAT_BC3_UNORM;
+	case DXGI_FORMAT_BC5_TYPELESS:
+		return DXGI_FORMAT_BC5_UNORM;
+	
+	case DXGI_FORMAT_BC1_TYPELESS:
+		return DXGI_FORMAT_BC1_UNORM;
+	case DXGI_FORMAT_BC4_TYPELESS:
+		return DXGI_FORMAT_BC4_UNORM;
+	
+	default:
+		return format;
+	}
+	return format;
+}
+
+bool ig::DXGI::IsSRGB(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+	case DXGI_FORMAT_B8G8R8X8_UNORM_SRGB:
+		return true;
+	default:
+		return false;
+	}
+	return false;
+}
+
+DXGI_FORMAT ig::DXGI::SRGB2NonSRGB(DXGI_FORMAT format)
+{
+	switch (format)
+	{
+	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+		return DXGI_FORMAT_R8G8B8A8_UNORM;
+	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+		return DXGI_FORMAT_B8G8R8A8_UNORM;
+	case DXGI_FORMAT_B8G8R8X8_UNORM_SRGB:
+		return DXGI_FORMAT_B8G8R8X8_UNORM;		
+	default:
+		return format;
+	}
+	return format;
+}
+
+static void EnumAdapters(OUT std::vector<AdapterComPtr>& adapterList)
+{
+	adapterList.clear(); // zero size.
+	HRESULT hr = S_OK;
+	FactoryComPtr pFactory;
+	// Create DXGI factory
+	IG_D3D_ASSERT_SUCCEEDED(CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(pFactory.GetAddressOf())), L"Failed to Create DXGI factory.");
+
+	// enumerate all the adapters
+	AdapterComPtr pAdapter;
+	while (pFactory->EnumAdapters(static_cast<UINT>(adapterList.size()), pAdapter.ReleaseAndGetAddressOf()) != DXGI_ERROR_NOT_FOUND)
+	{
+		adapterList.push_back(pAdapter);
+	}
+}
+
+std::vector<AdapterComPtr> ig::DXGI::GetAllAdapters()
+{
+	std::vector<AdapterComPtr> adapterList;
+	EnumAdapters(adapterList);
+	return adapterList;
+}
+
+std::vector<AdapterComPtr> ig::DXGI::GetDedicateAdapters()
+{
+	//	HRESULT hr = S_OK;
+	std::vector<AdapterComPtr> adapterList;
+	EnumAdapters(adapterList);
+
+	std::vector<AdapterComPtr> dAdapterList;
+	if (adapterList.size() != 0)
+	{
+		for (AdapterComPtr adapter : adapterList)
+		{
+			DXGI_ADAPTER_DESC desc;
+			ZeroMemory(&desc, sizeof(desc));
+			if (SUCCEEDED(adapter->GetDesc(&desc)))
+			{
+				if (desc.DedicatedVideoMemory > 0)
+				{
+					dAdapterList.push_back(adapter);
+				}
+			}
+		}
+	}
+	return dAdapterList;
+}
+
+AdapterComPtr ig::DXGI::GetPrimaryAdapter()
+{
+	std::vector<AdapterComPtr> adapterList;
+	EnumAdapters(adapterList);
+
+	if (adapterList.size() != 0)
+		return adapterList[0];
+	else
+		return nullptr;
+}

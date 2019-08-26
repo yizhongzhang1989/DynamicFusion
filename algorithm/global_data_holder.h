@@ -12,16 +12,22 @@
 #include "DynamicFusionParam.h"
 #include "DynamicFusionProcessor.h"
 #include "GpuKdTree.h"
+#include "DepthSensor.h"
 class GlobalDataHolder
 {
 public:
+	GlobalDataHolder() {
+		depth_sensor_ptr = NULL;
+	}
+
 	void init();
 
 	static void saveDepth(const std::vector<dfusion::depthtype>& depth_h, std::string filename);
 	static void loadDepth(std::vector<dfusion::depthtype>& depth_h, std::string filename);
 public:
 	dfusion::DynamicFusionProcessor m_processor;
-	Microsoft_Kinect m_kinect;
+	//Microsoft_Kinect m_kinect;
+	DepthSensor*	depth_sensor_ptr;
 	dfusion::Param m_dparam;
 	dfusion::LightSource m_lights;
 

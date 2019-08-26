@@ -75,7 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(Platform)\$(Configuration)\</IntDir>
-    <LibraryPath>D:\Qt\5.13.0\msvc2015_64\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Qt\5.13.0\msvc2015_64\lib;KinectFusionCommon\DepthSensor\igD3D;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,7 +133,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_OPENGL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(KINECTSDK20_DIR)\inc;$(KINECTSDK10_DIR)\inc;$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include;$(ProjectDir)\algorithm\DynamicFusion;$(ProjectDir)\algorithm\freeglut;$(ProjectDir)\algorithm\renderable;$(ProjectDir)\algorithm\mpu;$(ProjectDir)\algorithm\ldpmat;$(ProjectDir)\algorithm\kdtree;$(ProjectDir)\algorithm\freeImage;$(ProjectDir)\algorithm\camera;$(ProjectDir)\algorithm\bfgs;$(ProjectDir)\algorithm;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtOpenGL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(KINECTSDK20_DIR)\inc;$(KINECTSDK10_DIR)\inc;$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include;$(ProjectDir)\algorithm\DynamicFusion;$(ProjectDir)\algorithm\freeglut;$(ProjectDir)\algorithm\renderable;$(ProjectDir)\algorithm\mpu;$(ProjectDir)\algorithm\ldpmat;$(ProjectDir)\algorithm\kdtree;$(ProjectDir)\algorithm\freeImage;$(ProjectDir)\algorithm\camera;$(ProjectDir)\algorithm\bfgs;$(ProjectDir)\algorithm;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtOpenGL;KinectFusionCommon\;KinectFusionCommon\DepthSensor\shader;KinectFusionCommon\DepthSensor\igD3D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -228,6 +228,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="KinectFusionCommon\DepthSensor\GPUUndistorter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RayCastViewer.cpp" />
   </ItemGroup>
@@ -248,7 +249,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing dynamicfusionui.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL" "-I.\KinectFusionCommon" "-I.\KinectFusionCommon\DepthSensor\shader" "-I.\KinectFusionCommon\DepthSensor\igD3D"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +388,12 @@
     <ClInclude Include="algorithm\Renderable\ObjMesh.h" />
     <ClInclude Include="algorithm\Renderable\Renderable.h" />
     <ClInclude Include="algorithm\util.h" />
+    <ClInclude Include="KinectFusionCommon\ArgParser.h" />
+    <ClInclude Include="KinectFusionCommon\DepthSensor.h" />
+    <ClInclude Include="KinectFusionCommon\DepthSensor\GPUUndistorter.h" />
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectAzure.h" />
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectAzureMT.h" />
+    <ClInclude Include="KinectFusionCommon\DepthSensor\KinectV1.h" />
     <CustomBuild Include="RayCastViewer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing RayCastViewer.h...</Message>
@@ -403,7 +410,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing RayCastViewer.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL" "-I.\KinectFusionCommon" "-I.\KinectFusionCommon\DepthSensor\shader" "-I.\KinectFusionCommon\DepthSensor\igD3D"</Command>
     </CustomBuild>
     <CustomBuild Include="DepthViewer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -421,7 +428,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DepthViewer.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_OPENGL_LIB -D%(PreprocessorDefinitions)  "-I$(KINECTSDK20_DIR)\inc" "-I$(KINECTSDK10_DIR)\inc" "-I$(ProjectDir)\algorithm\DynamicFusion\cudpp\ModernGpu\include" "-I$(ProjectDir)\algorithm\DynamicFusion" "-I$(ProjectDir)\algorithm\freeglut" "-I$(ProjectDir)\algorithm\renderable" "-I$(ProjectDir)\algorithm\mpu" "-I$(ProjectDir)\algorithm\ldpmat" "-I$(ProjectDir)\algorithm\kdtree" "-I$(ProjectDir)\algorithm\freeImage" "-I$(ProjectDir)\algorithm\camera" "-I$(ProjectDir)\algorithm\bfgs" "-I$(ProjectDir)\algorithm" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtOpenGL" "-I.\KinectFusionCommon" "-I.\KinectFusionCommon\DepthSensor\shader" "-I.\KinectFusionCommon\DepthSensor\igD3D"</Command>
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_dynamicfusionui.h" />
   </ItemGroup>

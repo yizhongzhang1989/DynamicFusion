@@ -343,8 +343,29 @@ void DynamicFusionUI::frameSaving()
 
 void DynamicFusionUI::frameLive()
 {
-	g_dataholder.m_kinect.GetDepthColorIntoBuffer(g_dataholder.m_depth_h.data(), 
-		(uchar*)g_dataholder.m_color_h.data(), true, g_dataholder.m_dparam.mirror_input);
+	static std::vector<unsigned char>	rgba;
+	static std::vector<unsigned short>	depth;
+	if (rgba.empty()) {
+		rgba.resize(dfusion::KINECT_WIDTH*dfusion::KINECT_HEIGHT * 4);
+		depth.resize(dfusion::KINECT_WIDTH*dfusion::KINECT_HEIGHT);
+	}
+
+	if (g_dataholder.depth_sensor_ptr) {
+		g_dataholder.depth_sensor_ptr->GetData("rgbx8 %p | depth16 %p", &rgba[0], &depth[0]);
+	}
+	for (int i = 0; i < depth.size(); i++)
+		g_dataholder.m_depth_h.data()[i] = depth[i];
+	for (int i = 0; i < rgba.size(); i++)
+		((uchar*)g_dataholder.m_color_h.data())[i] = rgba[i];
+	for (int i = 0; i < depth.size(); i++) {
+		unsigned char tmp = ((uchar*)g_dataholder.m_color_h.data())[i * 4];
+		((uchar*)g_dataholder.m_color_h.data())[i * 4] = ((uchar*)g_dataholder.m_color_h.data())[i * 4 + 2];
+		((uchar*)g_dataholder.m_color_h.data())[i * 4 + 2] = tmp;
+	}
+
+	//g_dataholder.m_kinect.GetDepthColorIntoBuffer(g_dataholder.m_depth_h.data(), 
+	//	(uchar*)g_dataholder.m_color_h.data(), true, g_dataholder.m_dparam.mirror_input);
+
 	g_dataholder.m_depth_d.upload(g_dataholder.m_depth_h.data(), dfusion::KINECT_WIDTH*sizeof(dfusion::depthtype),
 		dfusion::KINECT_HEIGHT, dfusion::KINECT_WIDTH);
 	g_dataholder.m_color_d.upload(g_dataholder.m_color_h.data(), dfusion::KINECT_WIDTH*sizeof(dfusion::PixelRGBA),

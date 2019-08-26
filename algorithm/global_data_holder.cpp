@@ -1,11 +1,41 @@
 #include "global_data_holder.h"
 #include <fstream>
+#include "DepthSensor/KinectAzure.h"
+#include "DepthSensor/KinectV1.h"
 GlobalDataHolder g_dataholder;
 using namespace ldp;
 
 void GlobalDataHolder::init()
 {
-	m_kinect.InitKinect();
+	std::string sensor_name;
+	std::string init_cmd;
+	std::ifstream arg_file("arg.txt");
+	if (arg_file.is_open()) {
+		arg_file >> sensor_name;
+		std::getline(arg_file, init_cmd);
+		arg_file.close();
+	}
+	std::cout << "sensor name: " << sensor_name.c_str() << " (str len: " << sensor_name.length() << ")" << std::endl;
+	std::cout << "sensor init cmd: " << init_cmd.c_str() << std::endl;
+
+	//	init sensor
+	if (sensor_name == "KinectAzure")
+		depth_sensor_ptr = new KinectAzure();
+	else if (sensor_name == "KinectV1")
+		depth_sensor_ptr = new KinectV1();
+
+	if (!depth_sensor_ptr) {	//	cannot open device
+		std::cout << "open sensor device failed: " << sensor_name << std::endl;
+	}
+	if (!depth_sensor_ptr->InitDevice(init_cmd.c_str())) {	//	cannot init device
+		std::cout << "init sensor failed: " << sensor_name << std::endl;
+		std::cout << "init cmd: " << init_cmd << std::endl;
+		delete depth_sensor_ptr;
+		depth_sensor_ptr = NULL;
+	}
+	std::cout << "depth sensor started" << std::endl;
+
+
 	m_depth_h.resize(dfusion::KINECT_WIDTH*dfusion::KINECT_HEIGHT);
 	m_color_h.resize(dfusion::KINECT_WIDTH*dfusion::KINECT_HEIGHT);
 	m_depth_d.create(dfusion::KINECT_HEIGHT, dfusion::KINECT_WIDTH);
