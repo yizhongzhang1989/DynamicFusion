@@ -322,7 +322,7 @@ namespace dfusion
 			}
 
 			// render
-			m_warpedMesh->renderToImg(userCam, light, img, m_param, m_warpField,
+			m_warpedMesh->renderToImg2(userCam, light, img, m_param, m_warpField,
 				&m_vmap_curr_pyd[0], &m_vmap_warp, &m_nmap_curr_pyd[0],
 				&m_nmap_warp, m_canoMesh, canoPosPtr, knnPtr, &m_kinect_intr, true,
 				m_param.view_no_rigid);
@@ -343,9 +343,9 @@ namespace dfusion
 		}
 		else
 		{
-			m_canoMesh->renderToImg(userCam, light, img, m_param, m_warpField,
+			m_canoMesh->renderToImg2(userCam, light, img, m_param, m_warpField,
 				&m_vmap_curr_pyd[0], &m_vmap_warp, &m_nmap_curr_pyd[0],
-				&m_nmap_warp, m_canoMesh, nullptr, nullptr, &m_kinect_intr, false, false);
+				&m_nmap_warp, m_canoMesh, (const float3*)nullptr, (const KnnIdx*)nullptr, &m_kinect_intr, false, false);
 		}
 	}
 

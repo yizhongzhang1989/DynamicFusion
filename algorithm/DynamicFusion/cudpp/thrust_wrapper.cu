@@ -21,6 +21,7 @@
 #include <thrust/generate.h>
 #include <thrust/sort.h>
 #include <thrust/pair.h>
+#include <thrust/gather.h>
 #include <map>
 #include <algorithm>
 #include "thrust_wrapper.h"

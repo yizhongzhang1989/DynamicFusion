@@ -58,14 +58,16 @@ namespace dfusion
 		void toObjMesh(ObjMesh& omesh);
 
 		// unlockVertsNormals is performed insided
-		void renderToImg(const Camera& camera, LightSource light, ColorMap& img, 
-			const Param& param, const WarpField* warpField = nullptr,
-			const MapArr* vmap_live = nullptr, const MapArr* vmap_warp = nullptr,
-			const MapArr* nmap_live = nullptr, const MapArr* nmap_warp = nullptr,
-			GpuMesh* canoMesh = nullptr,
-			const float3* canoPosActive = nullptr,
-			const KnnIdx* knnIdxActiveView = nullptr,
-			const Intr* intr = nullptr, bool warp_nodes = true, bool no_rigid = false);
+		void renderToImg(const Camera& camera, LightSource light, ColorMap& img,
+			Param& param);
+		void renderToImg2(const Camera& camera, LightSource light, ColorMap& img,
+			Param& param, const WarpField* warpField,
+			const MapArr* vmap_live, const MapArr* vmap_warp,
+			const MapArr* nmap_live, const MapArr* nmap_warp,
+			GpuMesh* canoMesh,
+			const float3* canoPosActive,
+			const KnnIdx* knnIdxActiveView,
+			const Intr* intr, bool warp_nodes, bool no_rigid);
 		void renderToDepth(const Camera& camera, DepthMap& img);
 
 		// we assume self is warped by the warpField,

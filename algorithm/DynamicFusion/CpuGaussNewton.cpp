@@ -266,7 +266,8 @@ namespace dfusion
 				SpMat BtD = H.bottomRows(H.rows() - nodesInLevel0_ * 6);
 				SpMat::ColsBlockXpr Bt = BtD.leftCols(nodesInLevel0_ * 6);
 				SpMat::ColsBlockXpr D = BtD.rightCols(BtD.cols() - Bt.cols());
-				Mat Q = D - (Bt * L0L0tinv) * Bt.transpose();
+				SpMat BtL0L0tinv = Bt * L0L0tinv;
+				Mat Q = D - BtL0L0tinv * Bt.transpose();
 				Mat L1 = Q.llt().matrixL();
 
 				// solve for Lu=b

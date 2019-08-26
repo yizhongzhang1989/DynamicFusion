@@ -2,6 +2,7 @@
 #include "global_data_holder.h"
 #include "WarpField.h"
 #include "GpuGaussNewtonSolver.h"
+#include "GpuMesh.h"
 
 QMutex* g_mutex;
 class SaveThread : public QThread

@@ -648,8 +648,19 @@ namespace dfusion
 		m_vbo_id_warpnodes = 0;
 	}
 
-	void GpuMesh::renderToImg(const Camera& camera, LightSource light, ColorMap& img, 
-		const Param& param, const WarpField* warpField, 
+	void GpuMesh::renderToImg(
+		const Camera& camera, 
+		LightSource light, 
+		ColorMap& img,
+		Param& param
+	) {
+		GpuMesh::renderToImg2(
+			camera, light, img, param,
+			NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true, false);
+	}
+
+	void GpuMesh::renderToImg2(const Camera& camera, LightSource light, ColorMap& img, 
+		Param& param, const WarpField* warpField, 
 		const MapArr* vmap_live, const MapArr* vmap_warp,
 		const MapArr* nmap_live, const MapArr* nmap_warp, 
 		GpuMesh* canoMesh, 
